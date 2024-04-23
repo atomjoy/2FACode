@@ -35,7 +35,7 @@ namespace HelloWorld
 
                 while (true)
                 {
-                    dynamic? array = JsonConvert.DeserializeObject(json) ?? Array.Empty<string>();
+                    dynamic? array = JsonConvert.DeserializeObject(json) ?? new List<Object>();
 
                     foreach (var item in array)
                     {
