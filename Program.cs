@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using OtpNet;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HelloWorld
@@ -30,20 +31,30 @@ namespace HelloWorld
             string json = r.ReadToEnd();
             if (json != null)
             {
-                List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);                
-                dynamic array = JsonConvert.DeserializeObject(json);
-                foreach (var item in array)
-                {
-                    string itemName = item.name;
-                    string itemCode = item.code;                    
-                    var otpCode = new Totp(Base32Encoding.ToBytes(itemCode)).ComputeTotp(DateTime.UtcNow);                    
-                    Console.WriteLine("{0} ==> {1}", itemName, otpCode);                    
-                    Console.WriteLine("-------------------------------------");
-                }
-            }
+                List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
 
-            Console.WriteLine("\nPress any key to exit.");            
-            Console.ReadKey();
+                while (true)
+                {
+                    dynamic array = JsonConvert.DeserializeObject(json);
+
+                    foreach (var item in array)
+                    {
+                        string itemName = item.name;
+                        string itemCode = item.code;
+                        var otpCode = new Totp(Base32Encoding.ToBytes(itemCode)).ComputeTotp(DateTime.UtcNow);                        
+                        Console.WriteLine("{0}", DateTime.UtcNow.ToString());
+                        Console.WriteLine("{0}", itemName);
+                        Console.WriteLine("========> {0}", otpCode);
+                        Console.WriteLine("----------------------------------------");
+                    }
+
+                    Thread.Sleep(15000); // 30 second delay
+                    Console.Clear();
+                }
+
+                //Console.WriteLine("\nPress any key to exit.");            
+                //Console.ReadKey();
+            }
         }
     }
 }
