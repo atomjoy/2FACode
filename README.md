@@ -14,71 +14,18 @@ secrets\secrets.json
 [
   {
     "name": "Social",
-    "code": "47CMX5QK6BRJR4AFZ5C2NVGUSP67JA5B"
+    "code": "47CMX5QK6BRJR4AFZ5C2NVG"
   },
   {
     "name": "Mail",
-    "code": "B7PZCSD7K4AG4WX7WQEJVIE5FFCZB6MU"
+    "code": "B7PZCSD7K4AG4WX7WQEJVIE5FFCZB6"
   }
 ]
 ```
 
-## App
+## Console app
 
 Create json file with secrets in app dir secrets\secrets.json
-
-```csharp
-using Newtonsoft.Json;
-using OtpNet;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace HelloWorld
-{
-    public class Item
-    {        
-        public string name = "";
-        public string code = "";
-        // public DateTime datetime;
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {   
-            // Random hash
-            var key = KeyGeneration.GenerateRandomKey(20);
-            var base32String = Base32Encoding.ToString(key);
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("Random {0}", base32String);
-            Console.WriteLine("-------------------------------------");
-            
-            // JSON Secrets
-            using StreamReader r = new(@"secrets\secrets.json");
-            string json = r.ReadToEnd();
-            if (json != null)
-            {
-                List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);                
-                dynamic array = JsonConvert.DeserializeObject(json);
-                foreach (var item in array)
-                {
-                    string itemName = item.name;
-                    string itemCode = item.code;                    
-                    var otpCode = new Totp(Base32Encoding.ToBytes(itemCode)).ComputeTotp(DateTime.UtcNow);                    
-                    Console.WriteLine("{0} ==> {1}", itemName, otpCode);                    
-                    Console.WriteLine("-------------------------------------");
-                }
-            }
-
-            Console.WriteLine("\nPress any key to exit.");            
-            Console.ReadKey();
-        }
-    }
-}
-```
-
-## App Loop
 
 ```csharp
 using Newtonsoft.Json;
@@ -88,13 +35,12 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HelloWorld
+namespace MyApp
 {
     public class Item
     {        
         public string name = "";
-        public string code = "";
-        // public DateTime datetime;
+        public string code = "";        
     }
 
     class Program
@@ -103,23 +49,19 @@ namespace HelloWorld
         {   
             // Random hash
             var key = KeyGeneration.GenerateRandomKey(20);
-            var base32String = Base32Encoding.ToString(key);
-            Console.WriteLine("-------------------------------------");
+            var base32String = Base32Encoding.ToString(key);            
             Console.WriteLine("Random {0}", base32String);
             Console.WriteLine("-------------------------------------");
-
-            // using StreamReader r = new(@"D:\Git\file.json");
+            
             // From JSON
             using StreamReader r = new(@"secrets\secrets.json");
             string? json = r.ReadToEnd();
             if (json != null)
             {
                 List<Item>? items = JsonConvert.DeserializeObject<List<Item>>(json);
-
                 while (true)
                 {
                     dynamic? array = JsonConvert.DeserializeObject(json) ?? new List<Object>();
-
                     foreach (var item in array)
                     {
                         string itemName = item.name;
