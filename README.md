@@ -6,6 +6,23 @@ C# 2FA code generator from json (Two-Factor Codes).
 - Newtonsoft.Json
 - Otp.NET
 
+## Json secrets
+
+secrets\secrets.json
+
+```json
+[
+  {
+    "name": "Social",
+    "code": "47CMX5QK6BRJR4AFZ5C2NVGUSP67JA5B"
+  },
+  {
+    "name": "Mail",
+    "code": "B7PZCSD7K4AG4WX7WQEJVIE5FFCZB6MU"
+  }
+]
+```
+
 ## App
 
 Create json file with secrets in app dir secrets\secrets.json
@@ -36,9 +53,8 @@ namespace HelloWorld
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Random {0}", base32String);
             Console.WriteLine("-------------------------------------");
-
-            // using StreamReader r = new(@"D:\Git\file.json");
-            // From JSON
+            
+            // JSON Secrets
             using StreamReader r = new(@"secrets\secrets.json");
             string json = r.ReadToEnd();
             if (json != null)
@@ -125,21 +141,4 @@ namespace HelloWorld
         }
     }
 }
-```
-
-## Json example
-
-secrets\secrets.json
-
-```json
-[
-  {
-    "name": "Social",
-    "code": "47CMX5QK6BRJR4AFZ5C2NVGUSP67JA5B"
-  },
-  {
-    "name": "Mail",
-    "code": "B7PZCSD7K4AG4WX7WQEJVIE5FFCZB6MU"
-  }
-]
 ```
