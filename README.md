@@ -1,4 +1,4 @@
-# 2FACode
+# 2FACode Generator
 C# 2FA code generator from json (Two-Factor Codes).
 
 ## Libs
