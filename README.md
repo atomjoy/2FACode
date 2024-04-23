@@ -126,8 +126,8 @@ namespace HelloWorld
                         string itemCode = item.code;
                         var otpCode = new Totp(Base32Encoding.ToBytes(itemCode)).ComputeTotp(DateTime.UtcNow);                        
                         Console.WriteLine("{0}", DateTime.UtcNow.ToString());
-                        Console.WriteLine("{0}", itemName);
-                        Console.WriteLine("========> {0}", otpCode);
+                        Console.WriteLine("===> {0}", itemName);
+                        Console.WriteLine("======> {0}", otpCode);
                         Console.WriteLine("----------------------------------------");
                     }
 
@@ -135,9 +135,10 @@ namespace HelloWorld
                     Console.Clear();
                 }
 
-                //Console.WriteLine("\nPress any key to exit.");            
-                //Console.ReadKey();
             }
+            
+            Console.WriteLine("\nPress any key to exit.");            
+            Console.ReadKey();
         }
     }
 }
