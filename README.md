@@ -1,6 +1,11 @@
 # 2FACode Generator
 C# 2FA code generator from json (Two-Factor Codes).
 
+## Install .Net 8.0
+
+- https://dotnet.microsoft.com/en-us/download/dotnet/8.0
+- https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.128-windows-x64-installer
+
 ## Libs
 
 - Newtonsoft.Json
